@@ -11,7 +11,7 @@ Aplikacja do zarządzania zadaniami stworzona w Django.
 ![Strona dodania zadania](images/add_task_page.png)
 
 ### Strona listy zadan (http://127.0.0.1:8000/)
-![Strona listy zadan](images/add_task_page.png)
+![Strona listy zadan](images/task_list_page.png)
 
 ## Instalacja
 
