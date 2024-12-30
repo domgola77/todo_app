@@ -23,19 +23,22 @@ Aplikacja do zarządzania zadaniami stworzona w Django.
 2. Stwórz wirtualne środowisko i zainstaluj zależności:
 
     python -m venv venv
+   
     source venv/bin/activate  # Linux/macOS
+   
     venv\Scripts\activate     # Windows
+   
     pip install -r requirements.txt
 
-3. Wykonaj migracje bazy danych:
+4. Wykonaj migracje bazy danych:
 
     python manage.py migrate
 
-4. Utwórz użytkownika administracyjnego: Uruchom skrypt initialize_users.py, aby utworzyć użytkownika admin z hasłem admin123: 
+5. Utwórz użytkownika administracyjnego: Uruchom skrypt initialize_users.py, aby utworzyć użytkownika admin z hasłem admin123: 
 
     python manage.py shell < initialize_users.py
 
-5. Uruchamianie serwera: 
+6. Uruchamianie serwera: 
 
     python manage.py runserver
 
