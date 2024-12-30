@@ -1,6 +1,6 @@
 # Todo App w Django
 
-Aplikacja do zarządzania zadaniami stworzona w Django.
+Prosta i estetyczna aplikacja do zarzadzania zadaniami w Django stworzona dla studentów. Dzięki minimalistycznemu designowi szybko zapisuję i organizuję swoje obowiązki, a intuicyjny interfejs sprawia, że planowanie jest przyjemne
 
 ## Zrzuty ekranu
 
