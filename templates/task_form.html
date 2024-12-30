@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Dodaj zadanie{% endblock %}
+ 
+{% block content %}
+<div class="task-container">
+  <h2>Dzień dobry! 🧑‍🎓</h2>
+  <p>Sprawdź swoje zadania lub stwórz nowe</p>
+ 
+  <div class="task-actions">
+    <a href="{% url 'task_create' %}" class="button {% if request.path == '/create/' %}active{% endif %}">Dodaj nowe zadanie</a>
+    <a href="{% url 'task_list' %}" class="button {% if request.path == '/' %}active{% endif %}">Lista zadań</a>
+  </div>
+ 
+  <form method="post" class="task-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="button-task-form">Dodaj zadanie</button>
+  </form>
+</div>
+{% endblock %}

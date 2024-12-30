@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista zadań{% endblock %}
+
+{% block content %}
+<div class="task-container">
+    <h2>Dzień dobry! 🧑‍🎓</h2>
+    <p>Jestes zalogowany jako: {{user_type}}</p>
+   
+    <div class="task-actions">
+        <a href="{% url 'task_create' %}" class="button {% if request.path == '/create/' %}active{% endif %}">Dodaj nowe zadanie</a>
+        <a href="{% url 'task_list' %}" class="button {% if request.path == '/' %}active{% endif %}">Lista zadań</a>
+    </div>
+    <h3>Do zrobienia</h3>
+    {% if tasks %}
+    <ul>
+        {% for task in tasks %}
+            <li class="task-item">
+                <p>
+                    {% if task.priority.level == 'Low' %} 
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="14" height="14" rx="4" fill="white"/>
+                            <rect x="1" y="1" width="14" height="14" rx="4" stroke="#16E859" stroke-width="2"/>
+                        </svg>
+                    {% else %}
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="14" height="14" rx="4" fill="white"/>
+                            <rect x="1" y="1" width="14" height="14" rx="4" stroke="#E81717" stroke-width="2"/>
+                        </svg>                            
+                    {% endif %}
+                    {{ task.title }}
+                </p>
+                <div class="actions">
+                    <form method="post" action="{% url 'task_complete' task.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button class="icon-button" type="submit">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.5 7.91675L8.75002 12.5001L7.08335 10.8334M17.7084 10.0001C17.7084 14.2572 14.2572 17.7084 10 17.7084C5.74283 17.7084 2.29169 14.2572 2.29169 10.0001C2.29169 5.74289 5.74283 2.29175 10 2.29175C14.2572 2.29175 17.7084 5.74289 17.7084 10.0001Z" stroke="#989B9F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                        </button>
+                    </form>
+                    <form method="post" action="{% url 'task_delete' task.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button class="icon-button" type="submit"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.79167 4.79175V16.8751C4.79167 17.3353 5.16477 17.7084 5.625 17.7084H14.375C14.8352 17.7084 15.2083 17.3353 15.2083 16.8751V4.79175M4.79167 4.79175H15.2083M4.79167 4.79175H3.125M15.2083 4.79175H16.875M11.6667 8.95842V13.5417M8.33333 8.95842V13.5417M7.5 4.79175C7.5 3.41104 8.61925 2.29175 10 2.29175C11.3807 2.29175 12.5 3.41104 12.5 4.79175" stroke="#9F9998" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg></button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty-state">Brak zadań</p>
+    {% endif %}
+
+    <h3>Ukończone zadania</h3>
+    {% if completed_tasks %}
+    <ul>
+        {% for task in completed_tasks %}
+            <li class="task-item">
+                <p>
+                    {% if task.priority.level == 'Low' %} 
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="14" height="14" rx="4" fill="white"/>
+                            <rect x="1" y="1" width="14" height="14" rx="4" stroke="#16E859" stroke-width="2"/>
+                        </svg>
+                    {% else %}
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="14" height="14" rx="4" fill="white"/>
+                            <rect x="1" y="1" width="14" height="14" rx="4" stroke="#E81717" stroke-width="2"/>
+                        </svg>                            
+                    {% endif %}
+                    {{ task.title }}
+                </p>
+                <div class="actions">
+                    <form method="post" action="{% url 'task_delete' task.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button class="icon-button" type="submit"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.79167 4.79175V16.8751C4.79167 17.3353 5.16477 17.7084 5.625 17.7084H14.375C14.8352 17.7084 15.2083 17.3353 15.2083 16.8751V4.79175M4.79167 4.79175H15.2083M4.79167 4.79175H3.125M15.2083 4.79175H16.875M11.6667 8.95842V13.5417M8.33333 8.95842V13.5417M7.5 4.79175C7.5 3.41104 8.61925 2.29175 10 2.29175C11.3807 2.29175 12.5 3.41104 12.5 4.79175" stroke="#9F9998" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg></button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p class="empty-state">Brak ukończonych zadań.</p>
+    {% endif %}
+</div>
+{% endblock %}
